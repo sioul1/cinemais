@@ -6,16 +6,17 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('WRA CRM API')
+    .setTitle('CINEMAIS API')
     .setDescription(
-      'Documentação da API do CRM da WRA para gerenciar contatos e negócios.',
+      'Documentação da API do PROJETO Cinemais para gerenciar filmes e favoritos.',
     )
     .setVersion('1.0')
-    .addTag('contacts')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, document);
+
+  console.log('Server is running at port', process.env.PORT);
 
   await app.listen(process.env.PORT ?? 3000);
 }

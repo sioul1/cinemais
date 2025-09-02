@@ -1,13 +1,17 @@
-FROM node:18-alpine
+FROM node:18-slim
 
-WORKDIR /usr/src/app
+RUN apt-get update -y && apt-get install -y openssl
+
+WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install --production
 
 COPY . .
 
-EXPOSE 3033
+RUN npm run build
 
-CMD ["npm", "start"]
+EXPOSE 3001
+
+CMD ["npm", "run", "start:prod"]    

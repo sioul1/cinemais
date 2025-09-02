@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from './core/database/database.module';
+import { MediaModule } from './feat/media/media.module';
+import { UserModule } from './feat/users/user.module';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, MediaModule, UserModule],
   controllers: [],
   providers: [],
 })
