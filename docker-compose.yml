@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:  
+  postgres:
+    image: postgres:latest
+    container_name: cinemais
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=cinemais
+      - POSTGRES_MAX_CONNECTIONS=100
+      - POSTGRES_SHARED_BUFFERS=256MB
+    ports:
+      - "5435:5432"
+    volumes:
+      - cinemais-backend_postgres-data:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+
+  backend:
+    build:
+      context: . 
+    container_name: cinemais-backend
+    ports:
+      - "3033:3033"
+    volumes:
+      - .:/usr/src/app 
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/cinemais
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3033/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  cinemais-backend_postgres-data:
+    external: true
+    name: cinemais-backend_postgres-data
