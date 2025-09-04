@@ -1,13 +1,13 @@
 # Cinemais API
 
-Este projeto consiste em uma API RESTful para a plataforma de streaming "Cinemais", desenvolvida como parte de um teste técnico para desenvolvedor(a) Back End Júnior. O serviço gerencia um catálogo de mídias (filmes e séries) e a lista de "Favoritos" dos usuários.
+Bem-vindo(a) à API do projeto Cinemais! Este projeto foi construído para simular o back-end de uma plataforma de streaming, onde você pode gerenciar um catálogo de filmes e séries, além de criar e organizar as listas de favoritos dos usuários. Nossa meta principal foi entregar um serviço robusto, organizado e escalável, pronto para crescer.
 
 ---
 
 ## 1. Justificativa das Escolhas Técnicas
 
-* **Framework (NestJS)**: A escolha pelo NestJS foi motivada por sua arquitetura modular e baseada em classes, que promove a organização do código, a separação de responsabilidades (Controller, Service, Repository) e a escalabilidade. A tipagem forte com TypeScript, que é nativa no NestJS, aumenta a segurança e a manutenibilidade do código, o que é um ponto preferencial no teste.
-* **Banco de Dados (Prisma)**: A opção pelo Prisma é justificada por sua abordagem de ORM que simplifica a interação com o banco de dados. O Prisma é "type-safe", o que significa que ele gera automaticamente os tipos para suas consultas, evitando erros de digitação e melhorando a experiência de desenvolvimento. A facilidade de uso, especialmente com migrações e a geração do cliente, permite focar na lógica de negócio.
+* **NestJS**: A escolha por NestJS foi estratégica. Ele nos permitiu adotar uma **arquitetura híbrida** que combina a orientação a objetos, a programação funcional e a reatividade. Essa abordagem não apenas organiza o código de forma lógica, mas também facilita a escalabilidade, pois a aplicação pode ser dividida em módulos independentes. O NestJS, com sua base em TypeScript, nos deu a segurança de tipagem que é essencial para prevenir erros e garantir que o projeto seja fácil de manter, mesmo quando novas funcionalidades são adicionadas.
+* **PostgreSQL e Prisma**: Para o banco de dados, a combinação do PostgreSQL com o Prisma foi a nossa aposta em eficiência. O PostgreSQL é um banco de dados relacional poderoso e confiável. O Prisma, por sua vez, atua como uma camada de abstração que simplifica nossa interação com o banco. Com ele, eliminamos a necessidade de escrever queries SQL manualmente, garantindo um código mais limpo e seguro. O maior benefício foi o seu "type-safety", que nos permitiu detectar erros de tipagem no momento do desenvolvimento, em vez de em tempo de execução.
 
 ---
 
@@ -64,11 +64,11 @@ Este projeto contém testes unitários para a lógica de negócio principal e te
 
 ## 4. Documentação dos Endpoints
 
-A documentação completa da API está disponível interativamente no Swagger. Após iniciar o servidor, acesse a URL:
+Você pode interagir com todos os endpoints da API através da nossa documentação interativa, construída com o Swagger. Para acessá-la, basta abrir o seu navegador após iniciar o servidor:
 
 **`http://localhost:3033/api-docs`**
 
-Abaixo estão alguns exemplos de como interagir com as rotas usando o `cURL` (OBS: os dados de ID foram colocados de forma random, devem ser alterados na hora de usar para os que a pessoa cadastrou e recebeu):
+A seguir, alguns exemplos de como você pode usar o `cURL` para fazer requisições à API (OBS: os dados de ID foram colocados de forma random, devem ser alterados na hora de usar para os que a pessoa cadastrou e recebeu):
 
 ### Gerenciamento do Catálogo de Mídia (`/media`)
 
