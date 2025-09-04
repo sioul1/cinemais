@@ -45,8 +45,3 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-
-volumes:
-  cinemais-backend_postgres-data:
-    external: true
-    name: cinemais-backend_postgres-data
