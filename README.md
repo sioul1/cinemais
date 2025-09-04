@@ -76,7 +76,7 @@ A seguir, alguns exemplos de como você pode usar o `cURL` para fazer requisiç�
 Adiciona um novo filme ao catálogo.
 
 ```bash
-curl --location 'http://localhost:3000/media' \
+curl --location 'http://localhost:3033/media' \
 --header 'Content-Type: application/json' \
 --data '{
     "title": "Matrix Genérica",
@@ -91,14 +91,14 @@ curl --location 'http://localhost:3000/media' \
 Lista todos os itens de mídia disponíveis no catálogo.
 
 ```bash
-curl --location 'http://localhost:3000/media'
+curl --location 'http://localhost:3033/media'
 ```
 
 #### **`GET /media/{id}`**
 Busca um item de mídia específico pelo seu ID.
 
 ```bash
-curl --location 'http://localhost:3000/media/cmf4hyx0i00006zw05tdlq65m'
+curl --location 'http://localhost:3033/media/cmf4hyx0i00006zw05tdlq65m'
 ```
 
 ### Gerenciamento da Lista de Favoritos (/users/{userId}/favorites)
@@ -107,7 +107,7 @@ curl --location 'http://localhost:3000/media/cmf4hyx0i00006zw05tdlq65m'
 Adiciona um item de mídia à lista de favoritos de um usuário.
 
 ```bash
-curl --location 'http://localhost:3000/users/cmf2sina400006zpwpb1rzqxt/favorites' \
+curl --location 'http://localhost:3033/users/cmf2sina400006zpwpb1rzqxt/favorites' \
 --header 'Content-Type: application/json' \
 --data '{
     "mediaId": "cmf4hyx0i00006zw05tdlq65m"
@@ -118,12 +118,12 @@ curl --location 'http://localhost:3000/users/cmf2sina400006zpwpb1rzqxt/favorites
 Lista todos os itens da lista de favoritos de um usuário.
 
 ```bash
-curl --location 'http://localhost:3000/users/cmf2sina400006zpwpb1rzqxt/favorites'
+curl --location 'http://localhost:3033/users/cmf2sina400006zpwpb1rzqxt/favorites'
 ```
 
 #### **`DELETE /users/{userId}/favorites/{mediaId}`**
 Remove um item de mídia da lista de favoritos de um usuário
 
 ```bash
-curl --location --request DELETE 'http://localhost:3000/users/cmf2sina400006zpwpb1rzqxt/favorites/cmf4hyx0i00006zw05tdlq65m'
+curl --location --request DELETE 'http://localhost:3033/users/cmf2sina400006zpwpb1rzqxt/favorites/cmf4hyx0i00006zw05tdlq65m'
 ```
