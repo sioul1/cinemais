@@ -24,7 +24,7 @@ Esta é a forma mais simples e preferencial de rodar o projeto, pois ele já orq
     ```bash
     docker-compose up --build
     ```
-3.  O servidor estará disponível na porta `3000` (ou a porta configurada no `docker-compose.yml`).
+3.  O servidor estará disponível na porta `3033` (ou a porta configurada no `docker-compose.yml`).
 
 ### Executando Localmente
 Se preferir, você pode rodar a aplicação localmente.
@@ -64,9 +64,9 @@ Este projeto contém testes unitários para a lógica de negócio principal e te
 
 A documentação completa da API está disponível interativamente no Swagger. Após iniciar o servidor, acesse a URL:
 
-**`http://localhost:3000/api-docs`**
+**`http://localhost:3033/api-docs`**
 
-Abaixo estão alguns exemplos de como interagir com as rotas usando o `cURL`:
+Abaixo estão alguns exemplos de como interagir com as rotas usando o `cURL` (OBS: os dados de ID foram colocados de forma random, devem ser alterados na hora de usar para os que a pessoa cadastrou e recebeu):
 
 ### Gerenciamento do Catálogo de Mídia (`/media`)
 
