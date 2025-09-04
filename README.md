@@ -16,6 +16,8 @@ Este projeto consiste em uma API RESTful para a plataforma de streaming "Cinemai
 ### Pré-requisitos
 Certifique-se de ter o Docker e o Docker Compose instalados em sua máquina.
 
+Certifique-se de adicionar o arquivo .env na raiz do projeto, copiar e colar o conteudo de .env.example .
+
 ### Executando com Docker Compose (Recomendado)
 Esta é a forma mais simples e preferencial de rodar o projeto, pois ele já orquestra o contêiner da aplicação e o banco de dados PostgreSQL.
 
