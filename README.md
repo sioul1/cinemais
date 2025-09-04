@@ -70,60 +70,43 @@ Você pode interagir com todos os endpoints da API através da nossa documentaç
 
 A seguir, alguns exemplos de como você pode usar o `cURL` para fazer requisições à API (OBS: os dados de ID foram colocados de forma random, devem ser alterados na hora de usar para os que a pessoa cadastrou e recebeu):
 
+A seguir, veja como você pode usar o Postman para fazer as requisições:
+
 ### Gerenciamento do Catálogo de Mídia (`/media`)
 
 #### **`POST /media`**
-Adiciona um novo filme ao catálogo.
+Adiciona um novo item ao catálogo. Certifique-se de que o corpo da requisição esteja no formato `JSON`.
 
-```bash
-curl --location 'http://localhost:3033/media' \
---header 'Content-Type: application/json' \
---data '{
-    "title": "Matrix Genérica",
-    "description": "Um dev descobre que o mundo é uma simulação e precisa debugá-lo.",
-    "type": "movie",
-    "releaseYear": 2025,
-    "genre": "Ficção Científica"
-}'
-```
+![Exemplo de requisição POST /media no Postman](post-method-media.png)
 
 #### **`GET /media`**
-Lista todos os itens de mídia disponíveis no catálogo.
+Lista todos os itens de mídia.
 
-```bash
-curl --location 'http://localhost:3033/media'
-```
+![Exemplo de requisição GET /media no Postman](get-method-all-medias.png)
 
 #### **`GET /media/{id}`**
-Busca um item de mídia específico pelo seu ID.
+Busca um item específico pelo ID.
 
-```bash
-curl --location 'http://localhost:3033/media/cmf4hyx0i00006zw05tdlq65m'
-```
+![Exemplo de requisição GET /media/{id} no Postman](get-method-one-media.png)
 
-### Gerenciamento da Lista de Favoritos (/users/{userId}/favorites)
+### Gerenciamento da Lista de Favoritos (`/users/{userId}/favorites`)
+
+#### **`POST /users`**
+Cria um usuário novo para poder adicionar os favoritos.
+
+![Exemplo de requisição POST /users no Postman](post-method-create-user.png)
 
 #### **`POST /users/{userId}/favorites`**
-Adiciona um item de mídia à lista de favoritos de um usuário.
+Adiciona um favorito à lista de um usuário. O `mediaId` deve ser enviado no corpo da requisição, no formato `JSON`.
 
-```bash
-curl --location 'http://localhost:3033/users/cmf2sina400006zpwpb1rzqxt/favorites' \
---header 'Content-Type: application/json' \
---data '{
-    "mediaId": "cmf4hyx0i00006zw05tdlq65m"
-}'
-```
+![Exemplo de requisição POST /users/{userId}/favorites no Postman](post-method-add-a-favorite.png)
 
 #### **`GET /users/{userId}/favorites`**
-Lista todos os itens da lista de favoritos de um usuário.
+Lista todos os favoritos de um usuário.
 
-```bash
-curl --location 'http://localhost:3033/users/cmf2sina400006zpwpb1rzqxt/favorites'
-```
+![Exemplo de requisição GET /users/{userId}/favorites no Postman](get-method-all-favorites.png)
 
 #### **`DELETE /users/{userId}/favorites/{mediaId}`**
-Remove um item de mídia da lista de favoritos de um usuário
+Remove um favorito da lista de um usuário.
 
-```bash
-curl --location --request DELETE 'http://localhost:3033/users/cmf2sina400006zpwpb1rzqxt/favorites/cmf4hyx0i00006zw05tdlq65m'
-```
+![Exemplo de requisição DELETE /users/{userId}/favorites/{mediaId} no Postman](delete-method-favorite.png)
