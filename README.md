@@ -77,36 +77,36 @@ A seguir, veja como você pode usar o Postman para fazer as requisições:
 #### **`POST /media`**
 Adiciona um novo item ao catálogo. Certifique-se de que o corpo da requisição esteja no formato `JSON`.
 
-![Exemplo de requisição POST /media no Postman](post-method-media.png)
+![Exemplo de requisição POST /media no Postman](public/images/post-method-media.png)
 
 #### **`GET /media`**
 Lista todos os itens de mídia.
 
-![Exemplo de requisição GET /media no Postman](get-method-all-medias.png)
+![Exemplo de requisição GET /media no Postman](public/images/get-method-all-medias.png)
 
 #### **`GET /media/{id}`**
 Busca um item específico pelo ID.
 
-![Exemplo de requisição GET /media/{id} no Postman](get-method-one-media.png)
+![Exemplo de requisição GET /media/{id} no Postman](public/images/get-method-one-media.png)
 
 ### Gerenciamento da Lista de Favoritos (`/users/{userId}/favorites`)
 
 #### **`POST /users`**
 Cria um usuário novo para poder adicionar os favoritos.
 
-![Exemplo de requisição POST /users no Postman](post-method-create-user.png)
+![Exemplo de requisição POST /users no Postman](public/images/post-method-create-user.png)
 
 #### **`POST /users/{userId}/favorites`**
 Adiciona um favorito à lista de um usuário. O `mediaId` deve ser enviado no corpo da requisição, no formato `JSON`.
 
-![Exemplo de requisição POST /users/{userId}/favorites no Postman](post-method-add-a-favorite.png)
+![Exemplo de requisição POST /users/{userId}/favorites no Postman](public/images/post-method-add-a-favorite.png)
 
 #### **`GET /users/{userId}/favorites`**
 Lista todos os favoritos de um usuário.
 
-![Exemplo de requisição GET /users/{userId}/favorites no Postman](get-method-all-favorites.png)
+![Exemplo de requisição GET /users/{userId}/favorites no Postman](public/images/get-method-all-favorites.png)
 
 #### **`DELETE /users/{userId}/favorites/{mediaId}`**
 Remove um favorito da lista de um usuário.
 
-![Exemplo de requisição DELETE /users/{userId}/favorites/{mediaId} no Postman](delete-method-favorite.png)
+![Exemplo de requisição DELETE /users/{userId}/favorites/{mediaId} no Postman](public/images/delete-method-favorite.png)
