@@ -1,98 +1,127 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Cinemais API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este projeto consiste em uma API RESTful para a plataforma de streaming "Cinemais", desenvolvida como parte de um teste técnico para desenvolvedor(a) Back End Júnior. O serviço gerencia um catálogo de mídias (filmes e séries) e a lista de "Favoritos" dos usuários.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 1. Justificativa das Escolhas Técnicas
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+* **Framework (NestJS)**: A escolha pelo NestJS foi motivada por sua arquitetura modular e baseada em classes, que promove a organização do código, a separação de responsabilidades (Controller, Service, Repository) e a escalabilidade. A tipagem forte com TypeScript, que é nativa no NestJS, aumenta a segurança e a manutenibilidade do código, o que é um ponto preferencial no teste.
+* **Banco de Dados (Prisma)**: A opção pelo Prisma é justificada por sua abordagem de ORM que simplifica a interação com o banco de dados. O Prisma é "type-safe", o que significa que ele gera automaticamente os tipos para suas consultas, evitando erros de digitação e melhorando a experiência de desenvolvimento. A facilidade de uso, especialmente com migrações e a geração do cliente, permite focar na lógica de negócio.
 
-## Project setup
+---
+
+## 2. Como Rodar o Projeto
+
+### Pré-requisitos
+Certifique-se de ter o Docker e o Docker Compose instalados em sua máquina.
+
+### Executando com Docker Compose (Recomendado)
+Esta é a forma mais simples e preferencial de rodar o projeto, pois ele já orquestra o contêiner da aplicação e o banco de dados PostgreSQL.
+
+1.  Clone este repositório.
+2.  Na raiz do projeto, execute o comando:
+    ```bash
+    docker-compose up --build
+    ```
+3.  O servidor estará disponível na porta `3000` (ou a porta configurada no `docker-compose.yml`).
+
+### Executando Localmente
+Se preferir, você pode rodar a aplicação localmente.
+
+1.  Instale as dependências:
+    ```bash
+    npm install
+    ```
+2.  Configure a variável de ambiente `DATABASE_URL` no arquivo `.env`.
+3.  Rode a migração do banco de dados para criar as tabelas:
+    ```bash
+    npx prisma migrate dev --name init
+    ```
+4.  Inicie a aplicação:
+    ```bash
+    npm run start:dev
+    ```
+
+---
+
+## 3. Como Rodar os Testes
+
+Este projeto contém testes unitários para a lógica de negócio principal e testes de integração (e2e) para os endpoints da API.
+
+* Para rodar os testes de unidade:
+    ```bash
+    npm run test
+    ```
+* Para rodar os testes de integração:
+    ```bash
+    npm run test:e2e
+    ```
+
+---
+
+## 4. Documentação dos Endpoints
+
+A documentação completa da API está disponível interativamente no Swagger. Após iniciar o servidor, acesse a URL:
+
+**`http://localhost:3000/api-docs`**
+
+Abaixo estão alguns exemplos de como interagir com as rotas usando o `cURL`:
+
+### Gerenciamento do Catálogo de Mídia (`/media`)
+
+#### **`POST /media`**
+Adiciona um novo filme ao catálogo.
 
 ```bash
-$ npm install
+curl --location 'http://localhost:3000/media' \
+--header 'Content-Type: application/json' \
+--data '{
+    "title": "Matrix Genérica",
+    "description": "Um dev descobre que o mundo é uma simulação e precisa debugá-lo.",
+    "type": "movie",
+    "releaseYear": 2025,
+    "genre": "Ficção Científica"
+}'
 ```
 
-## Compile and run the project
+#### **`GET /media`**
+Lista todos os itens de mídia disponíveis no catálogo.
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+curl --location 'http://localhost:3000/media'
 ```
 
-## Run tests
+#### **`GET /media/{id}`**
+Busca um item de mídia específico pelo seu ID.
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+curl --location 'http://localhost:3000/media/cmf4hyx0i00006zw05tdlq65m'
 ```
 
-## Deployment
+### Gerenciamento da Lista de Favoritos (/users/{userId}/favorites)
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+#### **`POST /users/{userId}/favorites`**
+Adiciona um item de mídia à lista de favoritos de um usuário.
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+curl --location 'http://localhost:3000/users/cmf2sina400006zpwpb1rzqxt/favorites' \
+--header 'Content-Type: application/json' \
+--data '{
+    "mediaId": "cmf4hyx0i00006zw05tdlq65m"
+}'
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+#### **`GET /users/{userId}/favorites`**
+Lista todos os itens da lista de favoritos de um usuário.
 
-## Resources
+```bash
+curl --location 'http://localhost:3000/users/cmf2sina400006zpwpb1rzqxt/favorites'
+```
 
-Check out a few resources that may come in handy when working with NestJS:
+#### **`DELETE /users/{userId}/favorites/{mediaId}`**
+Remove um item de mídia da lista de favoritos de um usuário
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+```bash
+curl --location --request DELETE 'http://localhost:3000/users/cmf2sina400006zpwpb1rzqxt/favorites/cmf4hyx0i00006zw05tdlq65m'
+```

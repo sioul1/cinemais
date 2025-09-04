@@ -17,11 +17,11 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { UsersService } from './users.service';
-import { ZodValidationPipe } from 'src/shared/pipes/zod-validation.pipe';
-import { createUserSchema } from 'src/shared/dtos/user-dto/create-user/create-user.schema';
-import { CreateUserDto } from 'src/shared/dtos/user-dto/create-user/create-user.dto';
-import { addFavoriteSchema } from 'src/shared/dtos/user-dto/add-favorite/add-favorite.schema';
-import { AddFavoriteDto } from 'src/shared/dtos/user-dto/add-favorite/add-favorite.dto';
+import { ZodValidationPipe } from '../../shared/pipes/zod-validation.pipe';
+import { createUserSchema } from '../../shared/dtos/user-dto/create-user/create-user.schema';
+import { CreateUserDto } from '../../shared/dtos/user-dto/create-user/create-user.dto';
+import { addFavoriteSchema } from '../../shared/dtos/user-dto/add-favorite/add-favorite.schema';
+import { AddFavoriteDto } from '../../shared/dtos/user-dto/add-favorite/add-favorite.dto';
 
 @ApiTags('users')
 @Controller('users')
@@ -45,7 +45,6 @@ export class UsersController {
   }
 
   @Post(':userId/favorites')
-  @UsePipes(new ZodValidationPipe(addFavoriteSchema))
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({
     summary: 'Adiciona um item de mídia à lista de favoritos de um usuário.',
@@ -53,7 +52,7 @@ export class UsersController {
   @ApiParam({
     name: 'userId',
     description: 'ID do usuário',
-    example: 'd290f1ee-6c54-4b01-90e6-d701748f0851',
+    example: 'cmf2sina400006zpwpb1rzqxt',
   })
   @ApiBody({
     type: AddFavoriteDto,
@@ -67,7 +66,8 @@ export class UsersController {
   })
   async addFavorite(
     @Param('userId') userId: string,
-    @Body() addFavoriteDto: AddFavoriteDto,
+    @Body(new ZodValidationPipe(addFavoriteSchema))
+    addFavoriteDto: AddFavoriteDto,
   ) {
     await this.usersService.addFavorite(userId, addFavoriteDto);
   }
@@ -79,7 +79,7 @@ export class UsersController {
   @ApiParam({
     name: 'userId',
     description: 'ID do usuário',
-    example: 'd290f1ee-6c54-4b01-90e6-d701748f0851',
+    example: 'cmf2sina400006zpwpb1rzqxt',
   })
   @ApiResponse({
     status: 200,
@@ -98,12 +98,12 @@ export class UsersController {
   @ApiParam({
     name: 'userId',
     description: 'ID do usuário',
-    example: 'd290f1ee-6c54-4b01-90e6-d701748f0851',
+    example: 'cmf2sina400006zpwpb1rzqxt',
   })
   @ApiParam({
     name: 'mediaId',
     description: 'ID da mídia',
-    example: 'd290f1ee-6c54-4b01-90e6-d701748f0851',
+    example: 'cmf2sina400006zpwpb1rzqxt',
   })
   @ApiResponse({ status: 204, description: 'Operação bem-sucedida.' })
   @ApiResponse({

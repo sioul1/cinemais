@@ -1,14 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Media, PrismaClient } from 'generated/prisma';
+import { Media } from 'generated/prisma';
+import { DatabaseService } from '../../core/database/database.service';
 import { CreateMediaDto } from 'src/shared/dtos/media-dto/create-media.schema';
 
 @Injectable()
 export class MediaService {
-  private prisma: PrismaClient;
-
-  constructor() {
-    this.prisma = new PrismaClient();
-  }
+  constructor(private prisma: DatabaseService) {}
 
   async create(createMediaDto: CreateMediaDto) {
     const newMedia: Media = await this.prisma.media.create({

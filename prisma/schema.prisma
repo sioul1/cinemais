@@ -28,7 +28,7 @@ model Media {
 }
 
 model User {
-  id        String     @id @default(uuid())
+  id        String     @id @default(cuid())
   name      String
   favorites Favorite[]
 
@@ -36,7 +36,7 @@ model User {
 }
 
 model Favorite {
-  id      String @id @default(uuid())
+  id      String @id @default(cuid())
   user    User   @relation(fields: [userId], references: [id])
   userId  String
   media   Media  @relation(fields: [mediaId], references: [id])

@@ -1,15 +1,16 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaClient, User } from 'generated/prisma';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { User } from 'generated/prisma';
+import { DatabaseService } from '../../core/database/database.service';
 import { AddFavoriteDto } from 'src/shared/dtos/user-dto/add-favorite/add-favorite.schema';
 import { CreateUserDto } from 'src/shared/dtos/user-dto/create-user/create-user.schema';
 
 @Injectable()
 export class UsersService {
-  private prisma: PrismaClient;
-
-  constructor() {
-    this.prisma = new PrismaClient();
-  }
+  constructor(private prisma: DatabaseService) {}
 
   async create(createUserDto: CreateUserDto) {
     const { name } = createUserDto;
@@ -41,6 +42,21 @@ export class UsersService {
       throw new NotFoundException('O usuário com o ID informado não existe.');
     }
 
+    const existingFavorite = await this.prisma.favorite.findUnique({
+      where: {
+        userId_mediaId: {
+          userId,
+          mediaId,
+        },
+      },
+    });
+
+    if (existingFavorite) {
+      throw new BadRequestException(
+        'Esta mídia já está na lista de favoritos.',
+      );
+    }
+
     await this.prisma.favorite.create({
       data: {
         userId,
@@ -52,16 +68,32 @@ export class UsersService {
   }
 
   async getFavorites(userId: string) {
-    const userWithFavorites = await this.prisma.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id: userId },
-      include: { favorites: { include: { media: true } } },
+      include: {
+        favorites: {
+          include: {
+            media: {
+              select: {
+                id: true,
+                title: true,
+                type: true,
+              },
+            },
+          },
+        },
+      },
     });
 
-    if (!userWithFavorites) {
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+
+    if (!user.favorites) {
       return [];
     }
 
-    return userWithFavorites.favorites.map((favorite) => favorite.media);
+    return user.favorites.map((favorite) => favorite.media);
   }
 
   async removeFavorite(userId: string, mediaId: string) {

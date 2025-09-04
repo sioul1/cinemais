@@ -16,9 +16,9 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { MediaService } from './media.service';
-import { createMediaSchema } from 'src/shared/dtos/media-dto/create-media.schema';
-import { CreateMediaDto } from 'src/shared/dtos/media-dto/create-media.dto';
-import { ZodValidationPipe } from 'src/shared/pipes/zod-validation.pipe';
+import { createMediaSchema } from '../../shared/dtos/media-dto/create-media.schema';
+import { CreateMediaDto } from '../../shared/dtos/media-dto/create-media.dto';
+import { ZodValidationPipe } from '../../shared/pipes/zod-validation.pipe';
 
 @ApiTags('media')
 @Controller('media')
